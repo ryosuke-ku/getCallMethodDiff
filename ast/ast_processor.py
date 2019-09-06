@@ -28,18 +28,26 @@ class AstProcessor:
         #         print(callmethod)
 
         methodName = list(self.listener.called_methods.keys())
+        print("<メソッド名➀>")
         print(methodName[0])
-        print(methodName[1])
-        print(self.listener.called_methods[methodName[0]][0])
+        print("<メソッド呼び出し➀>")
+        # print(self.listener.called_methods[methodName[0]][0])
+        for callmethod1 in self.listener.called_methods[methodName[0]][0]:
+            print(callmethod1)
         # print(len(self.listener.called_methods[methodName[0]][0]))
+        print("-------------------------------------------------")
+        print("<メソッド名➁>")
         print(methodName[1])
-        print(self.listener.called_methods[methodName[1]][0])
+        print("<メソッド呼び出し➁>")
+        for callmethod2 in self.listener.called_methods[methodName[1]][0]:
+            print(callmethod2)
+        # print(self.listener.called_methods[methodName[1]][0])
         # print(len(self.listener.called_methods[methodName[1]][0]))
        
-
+        print("-------------------------------------------------")
         if len(self.listener.called_methods[methodName[0]][0]) <= len(self.listener.called_methods[methodName[1]][0]):
             num = len(self.listener.called_methods[methodName[0]][0])
-            print(num)
+            print("メソッド呼び出しの数 " + str(num))
 
         j = []
         for i in range(int(num)):
@@ -48,5 +56,5 @@ class AstProcessor:
             else:
                 j.append(0)
         # print(j)
-        print(str(j.count(1)) + "/" + str(num))
+        print("メソッド呼び出しの差異 " + str(j.count(1)) + "/" + str(num))
         # print(j.count(1)/int(num))
