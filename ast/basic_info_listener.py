@@ -37,7 +37,7 @@ class BasicInfoListener(JavaParserListener):
             'callMethods': self.call_methods
         }
         self.ast_info['methods'].append(method_info)
-        self.called_methods[c2].append(self.call_methods)
+        self.called_methods[startline_number + ' ' +  endline_number + ' ' + c2].append(self.call_methods)
         self.methods.append(startline_number + ' ' +  endline_number + ' ' + c2)
 
     def enterMethodCall(self, ctx:JavaParser.MethodCallContext):

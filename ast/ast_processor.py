@@ -16,16 +16,7 @@ class AstProcessor:
         parser = JavaParser(CommonTokenStream(JavaLexer(FileStream(input_source, encoding="utf-8"))))
         walker = ParseTreeWalker()
         walker.walk(self.listener, parser.compilationUnit())
-        # print(self.listener.called_methods)
-        # print(self.listener.methods)
-
-        # for method in self.listener.called_methods:
-        #     print("<メソッド名>")
-        #     print(method)
-        #     print("<メソッド呼び出し>")
-        #     for callmethod in self.listener.called_methods[method][0]:
-                
-        #         print(callmethod)
+        print(self.listener.called_methods)
 
         methodName = list(self.listener.called_methods.keys())
         print("<メソッド名➀>")
@@ -46,15 +37,27 @@ class AstProcessor:
        
         print("-------------------------------------------------")
         if len(self.listener.called_methods[methodName[0]][0]) <= len(self.listener.called_methods[methodName[1]][0]):
+            num = len(self.listener.called_methods[methodName[1]][0])
+            print("メソッド呼び出しの数 " + str(num))
+            callmethod1 = self.listener.called_methods[methodName[1]][0]
+            callmethod2 = self.listener.called_methods[methodName[0]][0]
+        else:
             num = len(self.listener.called_methods[methodName[0]][0])
             print("メソッド呼び出しの数 " + str(num))
+            callmethod1 = self.listener.called_methods[methodName[0]][0]
+            callmethod2 = self.listener.called_methods[methodName[1]][0]
 
-        j = []
-        for i in range(int(num)):
-            if self.listener.called_methods[methodName[0]][0][i] == self.listener.called_methods[methodName[1]][0][i]:
-                j.append(1)
-            else:
-                j.append(0)
-        # print(j)
-        print("メソッド呼び出しの差異 " + str(j.count(1)) + "/" + str(num))
-        # print(j.count(1)/int(num))
+        callMethodnum = []
+        for method1 in callmethod1:
+            for method2 in callmethod2:
+                if method1 == method2:
+                    index = callmethod2.index(method2)
+                    # print(index)
+                    # print(method1)
+                    callMethodnum.append(method1)
+                    callmethod2[index] = ""
+                    pass
+                else:
+                    pass
+
+        print("メソッド呼び出しの差異 " + str(len(callMethodnum)) + "/" + str(num))
